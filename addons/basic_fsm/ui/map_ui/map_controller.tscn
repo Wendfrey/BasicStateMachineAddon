@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkhyiiq8bqo1h"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/map_ui/MapController.gd" id="1_wvlk1"]
+[ext_resource type="PackedScene" uid="uid://75fwjkscxxss" path="res://addons/basic_fsm/ui/map_ui/static_state.tscn" id="2_jewdq"]
+[ext_resource type="Theme" uid="uid://bnuorb7dsan25" path="res://addons/basic_fsm/ui/themes/StartStateTheme.tres" id="3_j3q7p"]
+[ext_resource type="Theme" uid="uid://lfrbv786ri2g" path="res://addons/basic_fsm/ui/themes/FinishStateTheme.tres" id="4_f0ytd"]
+
+[node name="MapController" type="Control"]
+visible = false
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+focus_mode = 1
+script = ExtResource("1_wvlk1")
+
+[node name="LeftClickBlankPopup" type="PopupMenu" parent="."]
+size = Vector2i(121, 100)
+item_count = 1
+item_0/text = "create State"
+
+[node name="TransitionLayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StateLayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StartState" parent="StateLayer" instance=ExtResource("2_jewdq")]
+layout_mode = 0
+offset_left = 227.0
+offset_top = 246.0
+offset_right = 335.0
+offset_bottom = 301.0
+theme = ExtResource("3_j3q7p")
+position_offset = Vector2(227, 246)
+
+[node name="FinishState" parent="StateLayer" instance=ExtResource("2_jewdq")]
+layout_mode = 0
+offset_left = 554.0
+offset_top = 244.0
+offset_right = 662.0
+offset_bottom = 299.0
+theme = ExtResource("4_f0ytd")
+position_offset = Vector2(554, 244)
+
+[connection signal="id_pressed" from="LeftClickBlankPopup" to="." method="_on_left_click_blank_popup_id_pressed"]

@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3xqup1eutokn"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/state_machine_resource_editor.gd" id="1_pfknj"]
+[ext_resource type="PackedScene" uid="uid://c44dmpoai7hc0" path="res://addons/basic_fsm/ui/parameter_editor/parameter_editor.tscn" id="3_xocou"]
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/map_ui/GraphController.gd" id="4_n74i8"]
+[ext_resource type="Theme" uid="uid://bnuorb7dsan25" path="res://addons/basic_fsm/ui/themes/StartStateTheme.tres" id="6_kaq7j"]
+[ext_resource type="PackedScene" uid="uid://75fwjkscxxss" path="res://addons/basic_fsm/ui/map_ui/static_state.tscn" id="7_6k4ti"]
+[ext_resource type="Theme" uid="uid://lfrbv786ri2g" path="res://addons/basic_fsm/ui/themes/FinishStateTheme.tres" id="7_tf3p4"]
+
+[node name="StateMachineResourceEditor" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_pfknj")
+
+[node name="MainFrame" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionSelector" type="ItemList" parent="MainFrame"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+auto_height = true
+item_count = 2
+max_columns = 6
+item_0/text = "Map"
+item_1/text = "Parameters"
+
+[node name="ParameterEditor" parent="MainFrame" instance=ExtResource("3_xocou")]
+visible = false
+layout_mode = 2
+
+[node name="FlowEditor" type="PanelContainer" parent="MainFrame"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PanelSplitter" type="HSplitContainer" parent="MainFrame/FlowEditor"]
+layout_mode = 2
+split_offset = 885
+
+[node name="MapController" type="GraphEdit" parent="MainFrame/FlowEditor/PanelSplitter"]
+layout_mode = 2
+minimap_enabled = false
+show_minimap_button = false
+show_arrange_button = false
+script = ExtResource("4_n74i8")
+
+[node name="LeftClickBlankPopup" type="PopupMenu" parent="MainFrame/FlowEditor/PanelSplitter/MapController"]
+size = Vector2i(121, 100)
+item_count = 1
+item_0/text = "create State"
+
+[node name="BeginState" parent="MainFrame/FlowEditor/PanelSplitter/MapController" instance=ExtResource("7_6k4ti")]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 280.0
+offset_right = 178.0
+offset_bottom = 323.0
+mouse_filter = 1
+theme = ExtResource("6_kaq7j")
+position_offset = Vector2(40, 280)
+text = "Begin"
+can_transition_to = false
+
+[node name="ExitState" parent="MainFrame/FlowEditor/PanelSplitter/MapController" instance=ExtResource("7_6k4ti")]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 280.0
+offset_right = 526.0
+offset_bottom = 323.0
+mouse_filter = 1
+theme = ExtResource("7_tf3p4")
+position_offset = Vector2(380, 280)
+text = "Exit"
+can_transition_from = false
+
+[node name="PropertyContainer" type="MarginContainer" parent="MainFrame/FlowEditor/PanelSplitter"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="MainFrame/OptionSelector" to="." method="_on_option_selector_item_selected"]
+[connection signal="item_focused" from="MainFrame/FlowEditor/PanelSplitter/MapController" to="." method="_on_map_controller_item_focused"]
+[connection signal="id_pressed" from="MainFrame/FlowEditor/PanelSplitter/MapController/LeftClickBlankPopup" to="MainFrame/FlowEditor/PanelSplitter/MapController" method="_on_left_click_blank_popup_id_pressed"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://f0hey85vnmme"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_eovhv"]
+[ext_resource type="Script" path="res://addons/basic_fsm/StateMachineNode.gd" id="1_je0a5"]
+[ext_resource type="Resource" uid="uid://8oc74u16m18a" path="res://new_resource.tres" id="2_evne8"]
+[ext_resource type="Texture2D" uid="uid://bke5lgew4t5vy" path="res://icon.svg" id="4_2douq"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(568, 313)
+script = ExtResource("1_eovhv")
+
+[node name="StateMachineNode" type="Node" parent="Player" node_paths=PackedStringArray("target")]
+script = ExtResource("1_je0a5")
+target = NodePath("..")
+stateMachineResource = ExtResource("2_evne8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("4_2douq")

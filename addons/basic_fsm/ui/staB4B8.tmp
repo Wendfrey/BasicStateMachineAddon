@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3xqup1eutokn"]
+
+[ext_resource type="Theme" uid="uid://dpdia2cftpqmg" path="res://addons/basic_fsm/ui/themes/BackgroundMapTheme.tres" id="1_1b1uo"]
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/state_machine_resource_editor.gd" id="1_pfknj"]
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/map_ui/MapController.gd" id="2_c77ve"]
+[ext_resource type="Texture2D" uid="uid://sb1ibobjwi7a" path="res://addons/basic_fsm/ui/sprites/Sprite-0003.png" id="2_ndsmf"]
+[ext_resource type="PackedScene" uid="uid://c5l2io18q77oq" path="res://addons/basic_fsm/ui/map_ui/static_state.tscn" id="5_va4gs"]
+[ext_resource type="Theme" uid="uid://bnuorb7dsan25" path="res://addons/basic_fsm/ui/themes/StartStateTheme.tres" id="6_hnx22"]
+[ext_resource type="Theme" uid="uid://lfrbv786ri2g" path="res://addons/basic_fsm/ui/themes/FinishStateTheme.tres" id="7_ha5od"]
+
+[node name="StateMachineResourceEditor" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_pfknj")
+
+[node name="Control" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionSelector" type="ItemList" parent="Control"]
+layout_mode = 2
+size_flags_vertical = 0
+auto_height = true
+item_count = 2
+max_columns = 6
+item_0/text = "Drag"
+item_1/text = ""
+item_1/icon = ExtResource("2_ndsmf")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_1b1uo")
+
+[node name="MapController" type="Control" parent="Control/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("2_c77ve")
+
+[node name="LeftClickBlankPopup" type="PopupMenu" parent="Control/PanelContainer/MapController"]
+size = Vector2i(121, 100)
+item_count = 1
+item_0/text = "create State"
+item_0/id = 0
+
+[node name="TransitionLayer" type="Control" parent="Control/PanelContainer/MapController"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StateLayer" type="Control" parent="Control/PanelContainer/MapController"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StartState" parent="Control/PanelContainer/MapController/StateLayer" instance=ExtResource("5_va4gs")]
+layout_mode = 0
+offset_left = 351.0
+offset_top = 130.0
+offset_right = 459.0
+offset_bottom = 173.0
+theme = ExtResource("6_hnx22")
+can_transition_from = true
+
+[node name="FinishState" parent="Control/PanelContainer/MapController/StateLayer" instance=ExtResource("5_va4gs")]
+layout_mode = 0
+offset_left = 612.0
+offset_top = 129.0
+offset_right = 720.0
+offset_bottom = 172.0
+theme = ExtResource("7_ha5od")
+text = "END"
+can_transition_to = true
+
+[connection signal="item_selected" from="Control/OptionSelector" to="." method="_on_option_selector_item_selected"]
+[connection signal="id_pressed" from="Control/PanelContainer/MapController/LeftClickBlankPopup" to="Control/PanelContainer/MapController" method="_on_left_click_blank_popup_id_pressed"]

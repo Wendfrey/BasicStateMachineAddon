@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8dfpw8majr6k"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/property_editor/transition_property_editor.gd" id="1_cvcc8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5bxh"]
+bg_color = Color(0, 0, 0, 0.215686)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hknjy"]
+bg_color = Color(0.827451, 0.827451, 0.827451, 0.12549)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="TransitionPropertyEditor" type="Control"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cvcc8")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c5bxh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 33.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_hknjy")
+text = "Conditions"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConditionMain" type="VBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddConditionButton" type="MenuButton" parent="MarginContainer/Control/ConditionMain"]
+layout_mode = 2
+text = "Add Condition"
+item_count = 3
+popup/item_0/text = "1 Parameter"
+popup/item_1/text = "2 Parameters"
+popup/item_1/id = 1
+popup/item_2/text = "Trigger condition"
+popup/item_2/id = 2
+
+[node name="ConditionContainer" type="VBoxContainer" parent="MarginContainer/Control/ConditionMain"]
+layout_mode = 2
+size_flags_vertical = 3

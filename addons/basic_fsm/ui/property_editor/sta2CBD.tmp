@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwuhyht3loxi5"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/property_editor/state_property_editor.gd" id="1_74np6"]
+
+[node name="StatePropertyEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_74np6")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+columns = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "<empty>"
+
+[node name="ScriptLabel" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Script:"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="AddScriptButton" type="Button" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Add Script"
+
+[node name="ScriptSelector" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Abrir"
+file_mode = 0
+filters = PackedStringArray("*.gd")
+
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer2/VBoxContainer/NameLineEdit" to="." method="_on_name_line_edit_text_submitted"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/AddScriptButton" to="." method="_on_add_script_button_pressed"]
+[connection signal="file_selected" from="ScriptSelector" to="." method="_on_script_selector_file_selected"]

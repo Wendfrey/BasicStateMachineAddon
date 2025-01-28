@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="StateMachineResource" load_steps=2 format=3 uid="uid://8oc74u16m18a"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/StateMachineResource.gd" id="1_wyipe"]
+
+[resource]
+script = ExtResource("1_wyipe")
+state_array = [{
+"name": "NormalState",
+"script_state": "res://normal_state.gd",
+"type": &"StateData",
+"ui_pos_x": 180.0,
+"ui_pos_y": 160.0
+}, {
+"name": "RageState",
+"script_state": "res://rage_state.gd",
+"type": &"StateData",
+"ui_pos_x": 440.0,
+"ui_pos_y": 160.0
+}]
+transition_array = [{
+"conditions": [],
+"stateFrom": "",
+"stateTo": "NormalState",
+"type": &"TransitionData"
+}, {
+"conditions": [{
+"combinator": 0,
+"trigger_param": &"rage_trigger",
+"type": &"TriggerCondition"
+}],
+"stateFrom": "NormalState",
+"stateTo": "RageState",
+"type": &"TransitionData"
+}, {
+"conditions": [{
+"combinator": 0,
+"trigger_param": &"rage_trigger",
+"type": &"TriggerCondition"
+}, {
+"combinator": 0,
+"comparator": 2,
+"parameter": "time_on_state",
+"type": &"ParameterCondition",
+"valueR": 1.0
+}],
+"stateFrom": "RageState",
+"stateTo": "NormalState",
+"type": &"TransitionData"
+}]
+custom_parameters = {
+"rage_trigger": &"trigger"
+}
+ui_start_pos = Vector2(0, 0)
+ui_end_pos = Vector2(500, 280)
+offset = Vector2i(-31, 63)

@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbf6kdsvmbrch"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/property_editor/condition_parameters.gd" id="1_ri7cj"]
+
+[node name="ConditionParameters" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ri7cj")
+
+[node name="CombinatorSelector" type="OptionButton" parent="."]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "AND"
+popup/item_1/text = "OR"
+popup/item_1/id = 1
+
+[node name="ParameterLeftSelector" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ComparatorSelector" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 6
+popup/item_0/text = "=="
+popup/item_1/text = "!="
+popup/item_1/id = 1
+popup/item_2/text = ">"
+popup/item_2/id = 2
+popup/item_3/text = ">="
+popup/item_3/id = 3
+popup/item_4/text = "<"
+popup/item_4/id = 4
+popup/item_5/text = "<="
+popup/item_5/id = 5
+
+[node name="ParameterRightSelector" type="SpinBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -9e+09
+max_value = 9e+09
+step = 0.01
+allow_greater = true
+allow_lesser = true
+
+[node name="EraseButton" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+
+[connection signal="item_selected" from="CombinatorSelector" to="." method="_on_combinator_selector_item_selected"]
+[connection signal="item_selected" from="ParameterLeftSelector" to="." method="_on_parameter_left_selector_item_selected"]
+[connection signal="item_selected" from="ComparatorSelector" to="." method="_on_comparator_selector_item_selected"]
+[connection signal="value_changed" from="ParameterRightSelector" to="." method="_on_parameter_right_selector_value_changed"]
+[connection signal="pressed" from="EraseButton" to="." method="_on_erase_button_pressed"]

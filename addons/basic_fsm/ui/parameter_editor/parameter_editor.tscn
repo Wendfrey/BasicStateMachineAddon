@@ -1,0 +1,121 @@
+[gd_scene load_steps=4 format=3 uid="uid://c44dmpoai7hc0"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/parameter_editor/parameter_editor.gd" id="1_ytjux"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7hvf"]
+bg_color = Color(0, 0, 0, 0.215686)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cjqk"]
+bg_color = Color(0.603922, 0.603922, 0.603922, 0.215686)
+
+[node name="ParameterEditor" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_d7hvf")
+script = ExtResource("1_ytjux")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3cjqk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Header/VBoxContainer"]
+layout_mode = 2
+text = "Properties"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Header/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Header/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="Body" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Body"]
+layout_mode = 2
+
+[node name="PropertyLists" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GlobalPropertiesContainer" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists"]
+layout_mode = 2
+
+[node name="HeaderContainer" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/GlobalPropertiesContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Title" type="Label" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/GlobalPropertiesContainer/HeaderContainer"]
+layout_mode = 2
+text = "Global properties"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/GlobalPropertiesContainer/HeaderContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/GlobalPropertiesContainer/HeaderContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(1, 1, 1, 0.137255)
+
+[node name="BodyContainer" type="MarginContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/GlobalPropertiesContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="ElementList" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/GlobalPropertiesContainer/BodyContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CustomPropertiesContainer" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists"]
+layout_mode = 2
+
+[node name="HeaderContainer" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Title" type="Label" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer/HeaderContainer"]
+layout_mode = 2
+text = "Custom properties"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer/HeaderContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer/HeaderContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(1, 1, 1, 0.137255)
+
+[node name="BodyContainer" type="MarginContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="ElementList" type="VBoxContainer" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer/BodyContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AddCustomParamButton" type="Button" parent="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Add new parameter"
+
+[connection signal="pressed" from="VBoxContainer/Body/ScrollContainer/PropertyLists/CustomPropertiesContainer/AddCustomParamButton" to="." method="_on_add_custom_param_button_pressed"]

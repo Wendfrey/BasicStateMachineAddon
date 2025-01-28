@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpmgkhf53beqa"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/parameter_editor/parameter_element.gd" id="1_dwdwt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jee4u"]
+
+[node name="ParameterElement" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jee4u")
+script = ExtResource("1_dwdwt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ParamName" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ElementName"
+
+[node name="SeparatorV1" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 0.12549)
+
+[node name="ParamType" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "Trigger"
+popup/item_1/text = "Float"
+popup/item_1/id = 1
+
+[node name="SeparatorV2" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 0.12549)
+
+[node name="CloseButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "X"

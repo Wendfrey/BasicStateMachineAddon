@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7deph56wa104"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/ui/map_ui/TransitionUI.gd" id="1_igfda"]
+
+[node name="TransitionUI" type="GraphElement"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 4
+focus_mode = 1
+draggable = false
+script = ExtResource("1_igfda")
+line_width = 2.5
+node_type = 2
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 1
