@@ -45,6 +45,7 @@ func set_data(itemData:TriggerCondition, _property_callable:Callable):
 		TriggerSelector.add_item(_f)
 	
 	var _index_trigger = current_loaded_list_properties.find(itemData.trigger_param)
+	TriggerSelector.tooltip_text = itemData.trigger_param
 	
 	TriggerSelector.select(_index_trigger)
 	
@@ -64,5 +65,6 @@ func _on_trigger_selector_item_selected(index: int) -> void:
 		if itemData.trigger_param != new_param:
 			current_loaded_list_properties = get_property_triggers_callable.call()
 			TriggerSelector.selected = current_loaded_list_properties.find(itemData.trigger_param)
+			TriggerSelector.tooltip_text = itemData.trigger_param
 	else:
 		TriggerSelector.modulate = Color.DARK_RED

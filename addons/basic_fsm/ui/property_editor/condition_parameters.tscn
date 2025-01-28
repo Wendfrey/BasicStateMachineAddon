@@ -21,10 +21,12 @@ popup/item_1/id = 1
 [node name="ParameterLeftSelector" type="OptionButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 3
 
 [node name="ComparatorSelector" type="OptionButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 3
 selected = 0
 item_count = 6
 popup/item_0/text = "=="

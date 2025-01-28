@@ -51,6 +51,8 @@ func set_data(itemData:Param2Condition, _property_callable:Callable):
 		
 	var _index_left = current_loaded_list_properties.find(itemData.parameterL)
 	var _index_right = current_loaded_list_properties.find(itemData.parameterR)
+	ParameterLeftSelector.tooltip_text = itemData.parameterL
+	ParameterRightSelector.tooltip_text = itemData.parameterR
 	
 	ParameterLeftSelector.select(_index_left)
 	ParameterRightSelector.select(_index_right)
@@ -66,6 +68,7 @@ func _on_parameter_left_selector_item_selected(index):
 		if itemData.parameterL != new_param:
 			current_loaded_list_properties = get_property_floats_callable.call()
 			ParameterLeftSelector.selected = current_loaded_list_properties.find(itemData.parameterL)
+			ParameterLeftSelector.tooltip_text = itemData.parameterL
 	else:
 		ParameterLeftSelector.modulate = Color.DARK_RED
 
@@ -80,6 +83,7 @@ func _on_parameter_right_selector_item_selected(index):
 		if itemData.parameterR != new_param:
 			current_loaded_list_properties = get_property_floats_callable.call()
 			ParameterRightSelector.selected = current_loaded_list_properties.find(itemData.parameterR)
+			ParameterRightSelector.tooltip_text = itemData.parameterR
 	else:
 		ParameterRightSelector.modulate = Color.DARK_RED
 

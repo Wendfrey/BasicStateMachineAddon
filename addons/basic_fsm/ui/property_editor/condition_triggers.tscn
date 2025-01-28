@@ -21,6 +21,7 @@ popup/item_1/id = 1
 [node name="TriggerSelector" type="OptionButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 3
 
 [node name="EraseButton" type="Button" parent="."]
 layout_mode = 2
