@@ -28,7 +28,7 @@ transition_array = [{
 "trigger_param": &"rage_trigger",
 "type": &"TriggerCondition"
 }, {
-"combinator": 0,
+"combinator": 1,
 "comparator": 0,
 "parameter": "testing length of trigger",
 "type": &"ParameterCondition",
@@ -57,6 +57,6 @@ custom_parameters = {
 "rage_trigger": &"trigger",
 "testing length of trigger": &"float"
 }
-ui_start_pos = Vector2(0, 0)
-ui_end_pos = Vector2(500, 280)
-offset = Vector2i(0, 34)
+ui_start_pos = Vector2(0, 300)
+ui_end_pos = Vector2(380, 300)
+offset = Vector2i(-114, 83)
