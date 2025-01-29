@@ -51,9 +51,14 @@ func _gui_input(event):
 		queue_redraw()
 
 func initialize(stateMachineResource: StateMachineResource):
-	BeginNode.position_offset_changed.connect(_on_begin_state_position_update)
-	ExitNode.position_offset_changed.connect(_on_end_state_position_update)
-	scroll_offset_changed.connect(_on_scroll_offset_changed)
+	if not BeginNode.position_offset_changed.is_connected(_on_begin_state_position_update):
+		BeginNode.position_offset_changed.connect(_on_begin_state_position_update)
+	
+	if not ExitNode.position_offset_changed.is_connected(_on_end_state_position_update):
+		ExitNode.position_offset_changed.connect(_on_end_state_position_update)
+		
+	if not scroll_offset_changed.is_connected(_on_scroll_offset_changed):
+		scroll_offset_changed.connect(_on_scroll_offset_changed)
 	
 	self.stateMachineResource = stateMachineResource
 	
@@ -173,10 +178,10 @@ func end_transition_creation():
 #endregion
 
 #region callable methods
-func add_new_state(_position: Vector2):
+func add_new_state(_position: Vector2, _name:String = "", _script:String = ""):
 	var newStateUI = StateUINode.instantiate()
 	add_child(newStateUI)
-	var nStateData = add_state.call()
+	var nStateData = add_state.call(_name, _script)
 	nStateData.ui_pos = ( _position + scroll_offset ) / zoom #convert position to offset position
 	newStateUI.add_state_data(nStateData)
 	newStateUI.on_item_rclicked = custom_element_open_popup
@@ -250,4 +255,19 @@ func _exit_tree() -> void:
 		BeginNode.position_offset_changed.disconnect(_on_begin_state_position_update)
 		ExitNode.position_offset_changed.disconnect(_on_end_state_position_update)
 		scroll_offset_changed.disconnect(_on_scroll_offset_changed)
+
+func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+	if typeof(data) == TYPE_DICTIONARY and data.has("files") and data.get("files").size() == 1:
+		return true
+	return false
 	
+func _drop_data(at_position: Vector2, data: Variant) -> void:
+	var data_loaded = load(data.files[0])
+	if data_loaded is GDScript:
+		var scr_base:Script = data_loaded
+		
+		while scr_base and scr_base != StateScript:
+			scr_base = scr_base.get_base_script()
+		if scr_base == StateScript:
+			var file_name_ext = (data.files[0] as String).rsplit("/")[-1].left(-3)
+			add_new_state(at_position, file_name_ext, data.files[0])

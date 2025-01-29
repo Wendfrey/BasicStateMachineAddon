@@ -8,7 +8,7 @@
 [node name="TestScene" type="Node2D"]
 
 [node name="Player" type="Node2D" parent="."]
-position = Vector2(568, 313)
+position = Vector2(-2, -1)
 script = ExtResource("1_eovhv")
 
 [node name="StateMachineNode" type="Node" parent="Player" node_paths=PackedStringArray("target")]
@@ -17,4 +17,7 @@ target = NodePath("..")
 stateMachineResource = ExtResource("2_evne8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.655, 0.655)
 texture = ExtResource("4_2douq")
+
+[node name="Camera2D" type="Camera2D" parent="."]

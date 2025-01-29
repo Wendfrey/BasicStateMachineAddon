@@ -1,5 +1,5 @@
 extends Node
-
+class_name StateMachineNode
 
 const StateData = StateMachineResource.StateData
 const TransitionData = StateMachineResource.TransitionData
@@ -94,3 +94,6 @@ func active_trigger(_name):
 		check_conditions = true
 	else:
 		push_error("Not an existing trigger parameter")
+
+func get_parameter(p_name):
+	return parameters.get(p_name)

@@ -25,7 +25,7 @@ const TransitionUIEditor = preload("res://addons/basic_fsm/ui/property_editor/tr
 var stateMachineResource:StateMachineResource = null
 
 func _ready():
-	MapController.add_state = _create_empty_state
+	MapController.add_state = _create_state
 	MapController.add_transition = _create_empty_transition
 	MapController.remove_state = _delete_state
 	MapController.remove_transition = _delete_transition
@@ -65,11 +65,16 @@ func _exit_tree():
 	if Engine.is_editor_hint() and EditorInterface.get_inspector().edited_object_changed.is_connected(_on_edited_object_changed):
 		EditorInterface.get_inspector().edited_object_changed.disconnect(_on_edited_object_changed)
 		
-func _create_empty_state():
-	var nStateData:StateMachineResource.StateData = stateMachineResource.add_state("State", "")
+func _create_state(st_name:String, st_script:String):
+	if st_name.strip_edges().is_empty():
+		st_name = "State"
+	if not ResourceLoader.exists(st_script):
+		st_script = ""
+		
+	var nStateData:StateMachineResource.StateData = stateMachineResource.add_state(st_name, st_script)
 	var count: int = 1
 	while (not nStateData):
-		nStateData = stateMachineResource.add_state("State%s"%[count], "")
+		nStateData = stateMachineResource.add_state("%s%s"%[st_name, count], st_script)
 		count += 1
 	return nStateData
 	

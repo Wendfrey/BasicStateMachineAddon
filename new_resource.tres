@@ -6,16 +6,22 @@
 script = ExtResource("1_wyipe")
 state_array = [{
 "name": "NormalState",
-"script_state": "res://normal_state.gd",
+"script_state": "res://states/normal_state.gd",
 "type": &"StateData",
-"ui_pos_x": 180.0,
-"ui_pos_y": 160.0
+"ui_pos_x": 140.0,
+"ui_pos_y": 180.0
 }, {
 "name": "RageState",
-"script_state": "res://rage_state.gd",
+"script_state": "res://states/rage_state.gd",
 "type": &"StateData",
 "ui_pos_x": 440.0,
-"ui_pos_y": 160.0
+"ui_pos_y": 180.0
+}, {
+"name": "Recharge",
+"script_state": "res://states/recharge_state.gd",
+"type": &"StateData",
+"ui_pos_x": 300.0,
+"ui_pos_y": 60.0
 }]
 transition_array = [{
 "conditions": [],
@@ -27,12 +33,6 @@ transition_array = [{
 "combinator": 0,
 "trigger_param": &"rage_trigger",
 "type": &"TriggerCondition"
-}, {
-"combinator": 1,
-"comparator": 0,
-"parameter": "testing length of trigger",
-"type": &"ParameterCondition",
-"valueR": 0.0
 }],
 "stateFrom": "NormalState",
 "stateTo": "RageState",
@@ -43,7 +43,7 @@ transition_array = [{
 "trigger_param": &"rage_trigger",
 "type": &"TriggerCondition"
 }, {
-"combinator": 0,
+"combinator": 1,
 "comparator": 2,
 "parameter": "time_on_state",
 "type": &"ParameterCondition",
@@ -52,11 +52,53 @@ transition_array = [{
 "stateFrom": "RageState",
 "stateTo": "NormalState",
 "type": &"TransitionData"
+}, {
+"conditions": [{
+"combinator": 0,
+"comparator": 5,
+"parameter": "bullets",
+"type": &"ParameterCondition",
+"valueR": 0.0
+}, {
+"combinator": 1,
+"trigger_param": &"recharge_activated",
+"type": &"TriggerCondition"
+}],
+"stateFrom": "NormalState",
+"stateTo": "Recharge",
+"type": &"TransitionData"
+}, {
+"conditions": [{
+"combinator": 0,
+"comparator": 3,
+"parameter": "time_on_state",
+"type": &"ParameterCondition",
+"valueR": 2.0
+}],
+"stateFrom": "Recharge",
+"stateTo": "NormalState",
+"type": &"TransitionData"
+}, {
+"conditions": [{
+"combinator": 0,
+"comparator": 5,
+"parameter": "bullets",
+"type": &"ParameterCondition",
+"valueR": 0.0
+}, {
+"combinator": 1,
+"trigger_param": &"recharge_activated",
+"type": &"TriggerCondition"
+}],
+"stateFrom": "RageState",
+"stateTo": "Recharge",
+"type": &"TransitionData"
 }]
 custom_parameters = {
+"bullets": &"float",
 "rage_trigger": &"trigger",
-"testing length of trigger": &"float"
+"recharge_activated": &"trigger"
 }
 ui_start_pos = Vector2(0, 300)
 ui_end_pos = Vector2(380, 300)
-offset = Vector2i(-114, 83)
+offset = Vector2i(-92, -13)

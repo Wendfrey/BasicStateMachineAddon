@@ -28,6 +28,8 @@ var get_property_floats_callable:Callable
 var current_loaded_list_properties: Array
 
 func _ready() -> void:
+	#this is important, if a parameter has changed we need to update the visuals
+	# of the conditions, this allows that
 	visibility_changed.connect(
 		func ():
 			if visible and get_property_floats_callable and itemData:

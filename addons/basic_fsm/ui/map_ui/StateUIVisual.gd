@@ -33,9 +33,11 @@ var script_src:GDScript :
 		if stateData:
 			stateData.script_state = value.resource_path
 			is_script_valid = ResourceLoader.exists(stateData.script_state)
+			if stateData.script_state:
+				ScriptLabel.text = "Script assigned"
+			else:
+				ScriptLabel.text = "No script assigned"
 		script_src = value
-		
-		ScriptLabel.text = value.get_global_name()
 
 func _ready():
 	item_rect_changed.connect(_on_item_rect_changed)
