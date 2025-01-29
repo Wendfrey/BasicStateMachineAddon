@@ -42,7 +42,6 @@ func _navigate_to_next_state(stateName):
 	if stateName == "":
 		current_state.state_exit()
 		current_state = null
-		print("Finish!")
 	else:
 		_reset_time_on_state()
 		if current_state: current_state.state_exit()
