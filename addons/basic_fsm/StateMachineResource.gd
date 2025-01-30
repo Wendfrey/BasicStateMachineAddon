@@ -100,6 +100,8 @@ func add_transition(state_from:String, state_to:String) -> TransitionData:
 	if not _internal_get_transition_dict(state_from, state_to).is_empty():
 		print("Not unique instance - rejected { '", state_from, "', '", state_to, "' }")
 		return null
+	if state_from == state_to:
+		return null
 
 	var transition:TransitionData = TransitionData.new()
 	transition.stateFrom = state_from

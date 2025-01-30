@@ -29,9 +29,9 @@ func _ready():
 	MapController.add_transition = _create_empty_transition
 	MapController.remove_state = _delete_state
 	MapController.remove_transition = _delete_transition
-	
 	OptionSelector.select(0)
-	
+	_on_option_selector_item_selected(0)
+		
 	if (Engine.is_editor_hint()):
 		EditorInterface.get_inspector().edited_object_changed.connect(_on_edited_object_changed)
 		var edited_object = EditorInterface.get_inspector().get_edited_object()
@@ -55,6 +55,10 @@ func _on_option_selector_item_selected(index):
 	pass
 
 func _on_edited_object_changed():
+	var children = PropertyContainer.get_children()
+	while children.size() > 0:
+		children.pop_back().queue_free()
+		
 	var edited_object = EditorInterface.get_inspector().get_edited_object()
 	if edited_object is StateMachineResource:
 		stateMachineResource = edited_object
@@ -64,6 +68,10 @@ func _on_edited_object_changed():
 func _exit_tree():
 	if Engine.is_editor_hint() and EditorInterface.get_inspector().edited_object_changed.is_connected(_on_edited_object_changed):
 		EditorInterface.get_inspector().edited_object_changed.disconnect(_on_edited_object_changed)
+		
+	var children = PropertyContainer.get_children()
+	while children.size() > 0:
+		children.pop_back().queue_free()
 		
 func _create_state(st_name:String, st_script:String):
 	if st_name.strip_edges().is_empty():

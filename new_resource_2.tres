@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="StateMachineResource" load_steps=2 format=3 uid="uid://cmbu6tmvbsske"]
+
+[ext_resource type="Script" path="res://addons/basic_fsm/StateMachineResource.gd" id="1_87k6v"]
+
+[resource]
+script = ExtResource("1_87k6v")
+state_array = [{
+"name": "State",
+"script_state": "",
+"type": &"StateData",
+"ui_pos_x": 200.0,
+"ui_pos_y": 200.0
+}]
+transition_array = []
+custom_parameters = {
+"Param1": &"float",
+"Param12": &"float"
+}
+ui_start_pos = Vector2(0, 0)
+ui_end_pos = Vector2(0, 0)
+offset = Vector2i(-240, -50)

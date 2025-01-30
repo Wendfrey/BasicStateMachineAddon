@@ -1,6 +1,6 @@
 extends StateScript
 
-func state_enter():
+func _state_enter():
 	target.rage_state(false)
 
 func _physics_process(delta):

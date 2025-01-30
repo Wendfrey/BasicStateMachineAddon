@@ -19,10 +19,10 @@ func activate_trigger(_trigger:String):
 func set_parameter(_parameter:String, _value:float):
 	smNode.set_parameter_float(_parameter, _value)
 	
-func state_enter():
+func _state_enter():
 	pass
 	
-func state_exit():
+func _state_exit():
 	pass
 	
 func _process(delta: float):

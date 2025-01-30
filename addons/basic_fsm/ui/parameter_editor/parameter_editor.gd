@@ -9,7 +9,8 @@ const ParamNode = preload("res://addons/basic_fsm/ui/parameter_editor/parameter_
 var _stateMachineResource: StateMachineResource
 
 func set_state_machine_resource(stateMachineRes):
-	_stateMachineResource = stateMachineRes		
+	reset()
+	_stateMachineResource = stateMachineRes
 	instantiate_parameters(GlobalPropertiesContainer, _stateMachineResource.GLOBAL_PARAMS, false)
 	instantiate_parameters(CustomPropertiesContainer, _stateMachineResource.custom_parameters)
 
@@ -55,8 +56,12 @@ func _on_update_item_name(old_name, new_name):
 	return _stateMachineResource._update_parameter_name(old_name, new_name)
 
 func _exit_tree() -> void:
+	reset()
+		
+func reset():
 	var remove_children = CustomPropertiesContainer.get_children()
 	remove_children += GlobalPropertiesContainer.get_children()
 	
 	while(remove_children.size() > 0):
 		remove_children.pop_back().queue_free()
+	

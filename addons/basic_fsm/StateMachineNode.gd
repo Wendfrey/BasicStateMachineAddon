@@ -40,14 +40,14 @@ func _ready():
 
 func _navigate_to_next_state(stateName):
 	if stateName == "":
-		current_state.state_exit()
+		current_state._state_exit()
 		current_state = null
 	else:
 		_reset_time_on_state()
-		if current_state: current_state.state_exit()
+		if current_state: current_state._state_exit()
 		current_state = (instanced_states.get(stateName) as StateScript)
 		current_transitions = stateMachineResource.get_transitions(stateName).values()
-		current_state.state_enter()
+		current_state._state_enter()
 		if not current_state:
 			push_error("Error! Unkownk state")
 

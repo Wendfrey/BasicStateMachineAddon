@@ -101,4 +101,4 @@ custom_parameters = {
 }
 ui_start_pos = Vector2(0, 300)
 ui_end_pos = Vector2(380, 300)
-offset = Vector2i(-92, -13)
+offset = Vector2i(0, 0)
