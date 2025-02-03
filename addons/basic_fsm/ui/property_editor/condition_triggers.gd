@@ -20,33 +20,39 @@ var combinator_visible:bool:
 			await ready
 		
 		return CombinatorSelector.visible
-			
-			
-var get_property_triggers_callable:Callable
-var current_loaded_list_properties: Array
+
+var property_list: Array
+var _stateMachine:StateMachineResource
 
 func _ready() -> void:
+	
+	if Engine.is_editor_hint():
+		var _editedObject = EditorInterface.get_inspector().get_edited_object()
+		if _editedObject is StateMachineResource:
+			_stateMachine = _editedObject
+	else:
+		_stateMachine = StateMachineResource.new()
+		
 	#this is important, if a parameter has changed we need to update the visuals
 	# of the conditions, this allows that
 	visibility_changed.connect(
 		func ():
-			if visible and get_property_triggers_callable and itemData:
-				set_data(itemData, get_property_triggers_callable)
+			if visible and _stateMachine and itemData:
+				set_data(itemData)
 	)
 
-func set_data(itemData:TriggerCondition, _property_callable:Callable):
+func set_data(itemData:TriggerCondition):
 	self.itemData = itemData
 	CombinatorSelector.select(itemData.combinator)
 	
 	TriggerSelector.clear()
 	
-	current_loaded_list_properties = _property_callable.call()
-	get_property_triggers_callable = _property_callable
+	property_list = _stateMachine.get_paremeter_triggers_name_list()
 	
-	for _f in current_loaded_list_properties:
+	for _f in property_list:
 		TriggerSelector.add_item(_f)
 	
-	var _index_trigger = current_loaded_list_properties.find(itemData.trigger_param)
+	var _index_trigger = property_list.find(itemData.trigger_param)
 	TriggerSelector.tooltip_text = itemData.trigger_param
 	
 	TriggerSelector.select(_index_trigger)
@@ -62,11 +68,11 @@ func _on_erase_button_pressed():
 func _on_trigger_selector_item_selected(index: int) -> void:
 	if index >= 0:
 		TriggerSelector.modulate = Color.WHITE
-		var new_param = current_loaded_list_properties[index]
+		var new_param = property_list[index]
 		itemData.trigger_param = new_param
 		if itemData.trigger_param != new_param:
-			current_loaded_list_properties = get_property_triggers_callable.call()
-			TriggerSelector.selected = current_loaded_list_properties.find(itemData.trigger_param)
+			property_list = _stateMachine.get_paremeter_triggers_name_list()
+			TriggerSelector.selected = property_list.find(itemData.trigger_param)
 			TriggerSelector.tooltip_text = itemData.trigger_param
 	else:
 		TriggerSelector.modulate = Color.DARK_RED

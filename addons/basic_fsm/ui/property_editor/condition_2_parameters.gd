@@ -24,19 +24,25 @@ var combinator_visible:bool:
 		return CombinatorSelector.visible
 			
 			
-var get_property_floats_callable:Callable
-var current_loaded_list_properties: Array
+var property_list: Array
+var _stateMachine:StateMachineResource
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		var _editedObject = EditorInterface.get_inspector().get_edited_object()
+		if _editedObject is StateMachineResource:
+			_stateMachine = _editedObject
+	else:
+		_stateMachine = StateMachineResource.new()
 	#this is important, if a parameter has changed we need to update the visuals
 	# of the conditions, this allows that
 	visibility_changed.connect(
 		func ():
-			if visible and get_property_floats_callable and itemData:
-				set_data(itemData, get_property_floats_callable)
+			if visible and _stateMachine and itemData:
+				set_data(itemData)
 	)
 
-func set_data(itemData:Param2Condition, _property_callable:Callable):
+func set_data(itemData:Param2Condition):
 	self.itemData = itemData
 	CombinatorSelector.select(itemData.combinator)
 	ComparatorSelector.select(itemData.comparator)
@@ -44,15 +50,14 @@ func set_data(itemData:Param2Condition, _property_callable:Callable):
 	ParameterLeftSelector.clear()
 	ParameterRightSelector.clear()
 	
-	current_loaded_list_properties = _property_callable.call()
-	get_property_floats_callable = _property_callable
+	property_list = _stateMachine.get_parameter_floats_name_list()
 	
-	for _f in current_loaded_list_properties:
+	for _f in property_list:
 		ParameterLeftSelector.add_item(_f)
 		ParameterRightSelector.add_item(_f)
 		
-	var _index_left = current_loaded_list_properties.find(itemData.parameterL)
-	var _index_right = current_loaded_list_properties.find(itemData.parameterR)
+	var _index_left = property_list.find(itemData.parameterL)
+	var _index_right = property_list.find(itemData.parameterR)
 	ParameterLeftSelector.tooltip_text = itemData.parameterL
 	ParameterRightSelector.tooltip_text = itemData.parameterR
 	
@@ -65,11 +70,11 @@ func _on_combinator_selector_item_selected(index):
 func _on_parameter_left_selector_item_selected(index):
 	if index >= 0:
 		ParameterLeftSelector.modulate = Color.WHITE
-		var new_param = current_loaded_list_properties[index]
+		var new_param = property_list[index]
 		itemData.parameterL = new_param
 		if itemData.parameterL != new_param:
-			current_loaded_list_properties = get_property_floats_callable.call()
-			ParameterLeftSelector.selected = current_loaded_list_properties.find(itemData.parameterL)
+			property_list = _stateMachine.get_parameter_floats_name_list()
+			ParameterLeftSelector.selected = property_list.find(itemData.parameterL)
 			ParameterLeftSelector.tooltip_text = itemData.parameterL
 	else:
 		ParameterLeftSelector.modulate = Color.DARK_RED
@@ -80,11 +85,11 @@ func _on_comparator_selector_item_selected(index):
 func _on_parameter_right_selector_item_selected(index):
 	if index >= 0:
 		ParameterRightSelector.modulate = Color.WHITE
-		var new_param = current_loaded_list_properties[index]
+		var new_param = property_list[index]
 		itemData.parameterR = new_param
 		if itemData.parameterR != new_param:
-			current_loaded_list_properties = get_property_floats_callable.call()
-			ParameterRightSelector.selected = current_loaded_list_properties.find(itemData.parameterR)
+			property_list = _stateMachine.get_parameter_floats_name_list()
+			ParameterRightSelector.selected = property_list.find(itemData.parameterR)
 			ParameterRightSelector.tooltip_text = itemData.parameterR
 	else:
 		ParameterRightSelector.modulate = Color.DARK_RED

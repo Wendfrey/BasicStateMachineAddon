@@ -31,10 +31,12 @@ color = Color(1, 1, 1, 0.12549)
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 2
+item_count = 3
 popup/item_0/text = "Trigger"
 popup/item_1/text = "Float"
 popup/item_1/id = 1
+popup/item_2/text = "Int"
+popup/item_2/id = 2
 
 [node name="SeparatorV2" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(2, 0)

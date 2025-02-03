@@ -13,7 +13,7 @@ var comparator: ComparatorEnum = ComparatorEnum.EQ:
 func _evaluate(context) -> bool:
 	return _evaluate_compare(0,0)
 
-func _evaluate_compare(a:float, b:float) -> bool:
+func _evaluate_compare(a, b) -> bool:
 	var comparison_value = a-b
 	var result:int = 0
 	if (is_zero_approx(comparison_value)):
@@ -55,7 +55,11 @@ func _parameter_exists(parameter_name:String) -> bool:
 	var _o = owner.get_ref()
 	if not _o:
 		return true
-	return _o.get_param_float_list().has(parameter_name) or parameter_name.is_empty()
+	var _o_o = _o.owner.get_ref()
+	if not _o_o:
+		return true
+	
+	return _o_o.is_parameter_int(parameter_name) or _o_o.is_parameter_float(parameter_name)
 
 static func _from_dict(source, owner:TransitionData, condition_optional = null) -> ComparatorCondition:
 	if not condition_optional:

@@ -11,11 +11,28 @@ state_array = [{
 "ui_pos_x": 200.0,
 "ui_pos_y": 200.0
 }]
-transition_array = []
+transition_array = [{
+"conditions": [{
+"combinator": 0,
+"comparator": 0,
+"parameter": "Param1",
+"type": &"ParameterCondition",
+"valueR": 32.1164
+}, {
+"combinator": 0,
+"comparator": 0,
+"parameter": "Param12",
+"type": &"ParameterCondition",
+"valueR": 4
+}],
+"stateFrom": "",
+"stateTo": "State",
+"type": &"TransitionData"
+}]
 custom_parameters = {
 "Param1": &"float",
-"Param12": &"float"
+"Param12": &"int"
 }
 ui_start_pos = Vector2(0, 0)
 ui_end_pos = Vector2(0, 0)
-offset = Vector2i(-240, -50)
+offset = Vector2i(-418, 96)

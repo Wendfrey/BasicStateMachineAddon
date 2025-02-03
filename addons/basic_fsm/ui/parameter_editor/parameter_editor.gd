@@ -24,6 +24,8 @@ func instantiate_parameters(parent:Control, parameterList:Dictionary, editable:b
 				index = 0
 			StateMachineResource.ParamFloat:
 				index = 1
+			StateMachineResource.ParamInt:
+				index = 2
 		
 		ins.set_data(_p, index)
 		ins.is_editable = editable

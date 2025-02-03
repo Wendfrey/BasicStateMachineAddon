@@ -74,18 +74,6 @@ func _condition_update(condition:BaseCondition, attribute:StringName, new_value)
 	var _o:StateMachineResource = owner.get_ref()
 	return not _o or _o._transition_condition_update(self, condition, attribute, new_value)
 
-func get_param_float_list() -> Array:
-	var _o:StateMachineResource = owner.get_ref()
-	if _o:
-		return _o.get_parameter_floats_name_list()
-	return [] 
-
-func get_param_trigger_list() -> Array:
-	var _o:StateMachineResource = owner.get_ref()
-	if _o:
-		return _o.get_paremeter_triggers_name_list()
-	return [] 
-
 func _to_dict() -> Dictionary:
 	return {
 		type = &"TransitionData",
@@ -111,5 +99,3 @@ static func _from_dict(source: Dictionary, owner:StateMachineResource) -> Transi
 func _setter_transition_allowed(attribute, value) -> bool:
 	var _o = owner.get_ref()
 	return (not _o or _o._transition_update(self, attribute, value))
-
-#region Conditions

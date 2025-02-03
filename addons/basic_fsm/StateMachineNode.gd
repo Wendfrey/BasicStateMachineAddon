@@ -81,11 +81,14 @@ func _physics_process(delta):
 		_evaluate_current_transitions()
 
 func set_parameter_float(_name, _value):
-	if stateMachineResource.get_parameter_floats_name_list().has(_name):
+	if stateMachineResource.is_parameter_float(_name):
 		parameters[_name] = _value
 		check_conditions = true
+	elif stateMachineResource.is_parameter_int(_name):
+		parameters[_name] = int(_value)
+		check_conditions = true
 	else:
-		push_error("Not an existing float parameter")
+		push_error("Not an existing number parameter")
 
 func active_trigger(_name):
 	if stateMachineResource.get_paremeter_triggers_name_list().has(_name):

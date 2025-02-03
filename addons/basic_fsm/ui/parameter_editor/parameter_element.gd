@@ -39,6 +39,7 @@ func _on_type_selector_item_selected(index):
 	match (index):
 		0: new_type = StateMachineResource.ParamTrigger
 		1: new_type = StateMachineResource.ParamFloat
+		2: new_type = StateMachineResource.ParamInt
 	update_type.call(current_name, new_type)
 	
 func _on_name_update(new_text):

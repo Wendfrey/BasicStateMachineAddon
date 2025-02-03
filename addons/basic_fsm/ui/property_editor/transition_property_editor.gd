@@ -26,9 +26,6 @@ var itemData:TransitionData:
 			for _c in itemData.get_conditions():
 				_spawn_container_for_condition(_c)
 
-var get_property_triggers_callable:Callable
-var get_property_floats_callable:Callable
-
 func _ready():
 	if not AddConditionButton.get_popup().id_pressed.is_connected(_on_add_condition_button):
 		AddConditionButton.get_popup().id_pressed.connect(_on_add_condition_button)
@@ -55,17 +52,15 @@ func _on_erase_condition(condition:BaseCondition):
 
 func _spawn_container_for_condition(cBase:BaseCondition):
 	var conditionNode
-	var desired_property_list = get_property_floats_callable
 	if cBase is Parameter2Condition:
 		conditionNode = Condition2ParameterNode.instantiate()
 	elif cBase is ParameterCondition:
 		conditionNode = ConditionParameterNode.instantiate()
 	elif cBase is TriggerCondition:
 		conditionNode = ConditionTriggerNode.instantiate()
-		desired_property_list = get_property_triggers_callable
 
 	if conditionNode:
 		ConditionContainer.add_child(conditionNode)
-		conditionNode.set_data(cBase, desired_property_list)
+		conditionNode.set_data(cBase)
 		conditionNode.combinator_visible = (ConditionContainer.get_child(0) != conditionNode)
 		conditionNode.erase_condition.connect(_on_erase_condition)

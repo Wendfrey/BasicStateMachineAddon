@@ -4,8 +4,12 @@ const ParameterCondition = preload("res://addons/basic_fsm/data_helpers/conditio
 
 var parameter: String:
 	set(value): if (_setter_condition_allowed(&"parameter", value)): parameter = value
-var valueR:float:
-	set(value): if (_setter_condition_allowed(&"valueR", value)): valueR = value
+var valueR:
+	set(value):
+		if (typeof(value) != TYPE_FLOAT and typeof(value) != TYPE_INT):
+			return
+		if _setter_condition_allowed(&"valueR", value):
+			valueR = value
 
 func _evaluate(context) -> bool:
 	return _evaluate_compare(context[parameter], valueR)

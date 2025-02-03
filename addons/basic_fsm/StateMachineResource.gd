@@ -19,9 +19,10 @@ const STATES: StringName = &"states"
 const TRANSITIONS: StringName = &"transitions"
 const GLOBAL_PARAMS = {"on_finish": ParamTrigger, "time_on_state": ParamFloat}
 
-const PARAM_TYPES = [ ParamFloat, ParamTrigger]
+const PARAM_TYPES = [ ParamFloat, ParamTrigger, ParamInt]
 const ParamTrigger = &"trigger"
 const ParamFloat = &"float"
+const ParamInt = &"int"
 
 #map of current instances, since it isn't exported it won't be saved on resource
 var _instance_map:Dictionary = {
@@ -234,16 +235,38 @@ func get_paremeter_triggers_name_list() -> Array:
 
 func get_parameter_floats_name_list() -> Array:
 	var array_names = GLOBAL_PARAMS.keys().filter(
-		func (_key): return GLOBAL_PARAMS[_key] == ParamFloat
+		func (_key):
+			var type = GLOBAL_PARAMS[_key]
+			return type == ParamFloat or type == ParamInt
 	)
 	array_names.append_array(
 		custom_parameters.keys().filter(
-			func (_key): return custom_parameters[_key] == ParamFloat
+		func (_key):var type = custom_parameters[_key]; return type == ParamFloat or type == ParamInt
 		)
 	)
 	
 	return array_names
+
+func is_parameter_float(name:String) -> bool:
+	if GLOBAL_PARAMS.has(name):
+		return GLOBAL_PARAMS[name] == ParamFloat
+	if custom_parameters.has(name):
+		return custom_parameters[name] == ParamFloat
+	return false
 	
+func is_parameter_int(name:String) -> bool:
+	if GLOBAL_PARAMS.has(name):
+		return GLOBAL_PARAMS[name] == ParamInt
+	if custom_parameters.has(name):
+		return custom_parameters[name] == ParamInt
+	return false
+	
+func is_parameter_trigger(name:String) -> bool:
+	if GLOBAL_PARAMS.has(name):
+		return GLOBAL_PARAMS[name] == ParamTrigger
+	if custom_parameters.has(name):
+		return custom_parameters[name] == ParamTrigger
+	return false
 #endregion
 
 #region PRIVATE FUNCTIONS

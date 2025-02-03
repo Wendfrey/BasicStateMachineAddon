@@ -103,9 +103,6 @@ func _on_map_controller_item_focused(item):
 	elif item is TransitionUINode:
 		propertyEditor = TransitionUIEditor.instantiate()
 		propertyEditor.itemData = item.transitionData
-		propertyEditor.get_property_triggers_callable = stateMachineResource.get_paremeter_triggers_name_list
-		propertyEditor.get_property_floats_callable = stateMachineResource.get_parameter_floats_name_list
-		
 	
 	if propertyEditor:
 		PropertyContainer.get_children().all(func (n): n.queue_free())

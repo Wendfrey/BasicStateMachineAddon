@@ -32,7 +32,10 @@ func _trigger_exists(trigger_name:String) -> bool:
 	var _o = owner.get_ref()
 	if not _o:
 		return true
-	return _o.get_param_trigger_list().has(trigger_name) or trigger_name.is_empty()
+	var _o_o = _o.owner.get_ref()
+	if not _o_o:
+		return true
+	return _o_o.is_parameter_trigger(trigger_name)
 
 static func _from_dict(source, owner:TransitionData, condition_optional = null) -> TriggerCondition:
 	if not condition_optional:
