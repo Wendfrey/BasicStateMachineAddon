@@ -91,7 +91,7 @@ func set_parameter_float(_name, _value):
 		push_error("Not an existing number parameter")
 
 func active_trigger(_name):
-	if stateMachineResource.get_paremeter_triggers_name_list().has(_name):
+	if stateMachineResource.is_parameter_trigger(_name):
 		parameters[_name] = true
 		check_conditions = true
 	else:
